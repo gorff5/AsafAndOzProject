@@ -5,7 +5,7 @@ using System.Web;
 using System.Threading;
 using System.Web.Script.Serialization;
 using MySql.Data.MySqlClient;
-//aaa
+
 public class Handler : IHttpHandler
 {
     private static Object _lock = new Object();
