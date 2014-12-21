@@ -22,7 +22,8 @@ public partial class Login : System.Web.UI.Page
     {
         string UserName = userName.Text;
         string Password = password.Text;
-        string url = "http://localhost:52063/LoginHandler.ashx";
+        //PORT OF LOCAL COMPUTER CHANGES ALL THE TIME PLEASE MAKE SURE THAT U HAVE THE RIGHT PORT NUMBER.
+        string url = "http://localhost:53018/LoginHandler.ashx";
         UsreLogin userLogin = new UsreLogin(UserName, Password);
         JavaScriptSerializer myJavaScriptSerializer = new JavaScriptSerializer();
         string sendStr = myJavaScriptSerializer.Serialize(userLogin);
