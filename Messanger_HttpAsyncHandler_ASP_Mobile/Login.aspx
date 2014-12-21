@@ -41,7 +41,7 @@
     <div>
     
         <asp:Panel ID="Panel1" runat="server">
-            <asp:TextBox ID="userName" runat="server" Text=""></asp:TextBox>
+            <asp:TextBox ID="mail" runat="server" Text=""></asp:TextBox>
               <p/>
             <asp:TextBox ID="password"  runat="server" Text=""></asp:TextBox>
               <p/>

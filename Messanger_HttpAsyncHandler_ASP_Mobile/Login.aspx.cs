@@ -14,14 +14,17 @@ public partial class Login : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
     }
-    protected void Button_Click(object sender, EventArgs e)
-    {
 
-    }
     protected void Button1_Click(object sender, EventArgs e)
     {
-        string UserName = userName.Text;
+        string UserName = mail.Text;
         string Password = password.Text;
+        if (UserName == "" || Password == "")
+        {
+            //username or password wrong, we need to add gui to notify the user
+            return;
+        }
+
         //PORT OF LOCAL COMPUTER CHANGES ALL THE TIME PLEASE MAKE SURE THAT U HAVE THE RIGHT PORT NUMBER.
         string url = "http://localhost:53018/LoginHandler.ashx";
         UsreLogin userLogin = new UsreLogin(UserName, Password);

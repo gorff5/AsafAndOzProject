@@ -10,28 +10,28 @@ using System.Web;
 [Serializable]
 public class UsreLogin
 {
-    private string userName;
+    private string mail;
     private string password;
 
     public UsreLogin(UsreLogin UL)
     {
-        this.userName = UL.userName;
+        this.mail = UL.mail;
         this.password = UL.password;
     }
     public UsreLogin() { }
 	public UsreLogin(string userName, string password)
 	{
-        this.userName = userName;
+        this.mail = userName;
         this.password = password;
 	}
-    public string UserName
+    public string Mail
     {
         get {
-            return this.userName;
+            return this.mail;
         }
         set
         {
-            this.userName = value ;
+            this.mail = value ;
         }
     }
     public string Password

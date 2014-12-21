@@ -5,9 +5,7 @@ using MySql.Data.MySqlClient;
 public class AsyncServer
 {
     private static Object _lock = new Object();
-
     private static List<AsyncResult> _clientStateList = new List<AsyncResult>();
-
     private static JavaScriptSerializer myJavaScriptSerializer = new JavaScriptSerializer();
     private static    Random rnd = new Random();
 
@@ -22,7 +20,7 @@ public class AsyncServer
             MySqlDataReader reader;
             string myConnectString = "server=eu-cdbr-azure-west-b.cloudapp.net;User Id=bd5ee543622578;password=fca73da9;database=realmoney";
             myConnect = new MySqlConnection(myConnectString);
-            myCommand = new MySqlCommand("SELECT * FROM ques where id='"+rnd.Next(1,5)+"'", myConnect);
+            myCommand = new MySqlCommand("SELECT * FROM ques where id='"+rnd.Next(1,6)+"'", myConnect);
             myConnect.Open();
             reader = myCommand.ExecuteReader();
             reader.Read();
