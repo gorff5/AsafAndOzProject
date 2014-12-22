@@ -6,6 +6,7 @@ public class AsyncServer
 {
     private static Object _lock = new Object();
     private static List<AsyncResult> _clientStateList = new List<AsyncResult>();
+    private static List<game> online_games = new List<game>();
     private static JavaScriptSerializer myJavaScriptSerializer = new JavaScriptSerializer();
     private static    Random rnd = new Random();
 

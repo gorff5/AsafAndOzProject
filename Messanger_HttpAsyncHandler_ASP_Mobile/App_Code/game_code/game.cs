@@ -8,10 +8,22 @@ using System.Web;
 /// </summary>
 public class game
 {
-	public game()
-	{
-		//
-		// hi
-		//
-	}
+    private Boolean waiting_for_players;
+    private int num_of_players=0;
+    private Ques[] game_questions;
+    private player[] players=new player[8];
+
+	public game(player p)
+    {
+        waiting_for_players = true;
+        players[num_of_players] = p;
+        num_of_players++;
+        game_questions = getQues();
+    }
+
+    private Ques[] getQues()
+    {
+        throw new NotImplementedException();
+    }
+
 }

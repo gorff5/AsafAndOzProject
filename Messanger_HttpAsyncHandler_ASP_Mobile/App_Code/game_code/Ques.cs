@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// question object quntians info on the question
+/// question object, quntains info about the question
 /// </summary>
 [Serializable]
 public class Ques
 {
-    public string url = "http://www.youtube.com/embed/XGSy3_Czz8k?showinfo=0&controls=0";
+    public string url;
     public string ANS_1;
     public string ANS_2;
     public string ANS_3;
