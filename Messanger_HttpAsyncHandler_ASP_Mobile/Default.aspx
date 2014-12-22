@@ -15,8 +15,6 @@
 		    var xmlHttp_Process;
 		    
 		    function myLoad() {
-		        window.resizeTo(450, 550);
-
 		        try {
 		            xmlHttp_OneTime = new ActiveXObject("Microsoft.XMLHTTP");
 		            xmlHttp_Process = new ActiveXObject("Microsoft.XMLHTTP");
@@ -89,7 +87,7 @@
 		    window.onunload = myUnLoad;
 		</script>
  
-<body style="height: 534px">
+<body>
     <form id="form1" runat="server">
       <asp:Panel ID="Panel1" runat="server">
             <ContentTemplate>
@@ -101,15 +99,15 @@
                     height="315"
                     src="//www.youtube.com/embed/3d5ZxZdEUvA?showinfo=0&controls=0"
                     frameborder="0"
-                    allowfullscreen></iframe>
-
+                    allowfullscreen>
+                </iframe>
                        <p>
-                <asp:Button ID="Button1" runat="server" Text="Button1" />
+                 <asp:Button ID="Button1" runat="server" Text="Button1" />
                  <asp:Button ID="Button2" runat="server" Text="Button2" />
-                  <p>
-                <asp:Button ID="Button3" runat="server" Text="Button3" />
-                <asp:Button ID="Button4" runat="server" Text="Button4" />
-                <input id="Hidden1" type="hidden" value="Button1" />
+                   <p>
+                 <asp:Button ID="Button3" runat="server" Text="Button3" />
+                 <asp:Button ID="Button4" runat="server" Text="Button4" />
+                 <input id="Hidden1" type="hidden" value="Button1" />
             </ContentTemplate>
    </asp:Panel>
         </form>

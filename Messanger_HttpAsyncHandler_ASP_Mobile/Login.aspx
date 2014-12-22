@@ -6,46 +6,23 @@
 <head runat="server">
     <title></title>
 </head>
-    <script language="javascript">
-
-        function UserLogin(userName, password) {
-            this.userName = userName;
-            this.password = password;
-        }
-
-        function buttonClick() {
-            var userName = getElmentById("userName").value;
-            var password = getElmentById("password").value;
-            var jsonObj = JSON.stringify({ userName: userName, password: password });
-
-                try {
-                    xmlHttp_OneTime = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                catch (e) {
-                    try {
-                        xmlHttp_OneTime = new XMLHttpRequest()
-                    }
-                    catch (e) {
-                    }
-                }
-                var url = "LoginHandler.ashx?JSON=" + jsonObj;
-            xmlHttp_OneTime.open("POST", url, true);
-            xmlHttp_OneTime.onreadystatechange = getResponse_Connect;
-            xmlHttp_OneTime.send();
-
-        }
-    </script>
         
 <body>
     <form id="form1" runat="server">
     <div>
     
         <asp:Panel ID="Panel1" runat="server">
-            <asp:TextBox ID="mail" runat="server" Text=""></asp:TextBox>
+            <asp:Label ID="nameL" runat="server" Text="Name:" Visible="False"></asp:Label>
+            <asp:TextBox ID="nameT"  runat="server" Text="" Visible="False"></asp:TextBox>
               <p/>
-            <asp:TextBox ID="password"  runat="server" Text=""></asp:TextBox>
+            <asp:Label ID="mailL" runat="server" Text="Mail:"></asp:Label>
+            <asp:TextBox ID="mailT" hint="mail" runat="server" Text=""></asp:TextBox>
               <p/>
-            <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+            <asp:Label ID="passwordL" runat="server" Text="Password:"></asp:Label>
+            <asp:TextBox ID="passwordT"  runat="server" Text=""></asp:TextBox>
+              <p/> 
+             <asp:Button ID="login_button" runat="server" Text="Login" OnClick="login_Click" />
+             <asp:Button ID="register_button" runat="server" Text="Register" OnClick="register_Click" />
         </asp:Panel>
     
     </div>

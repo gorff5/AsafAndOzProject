@@ -11,47 +11,93 @@ using System.Web.UI.WebControls;
 
 public partial class Login : System.Web.UI.Page
 {
+    protected static JavaScriptSerializer myJavaScriptSerializer = new JavaScriptSerializer();
+
     protected void Page_Load(object sender, EventArgs e)
     {
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+
+    //login
+    protected void login_Click(object sender, EventArgs e)
     {
-        string UserName = mail.Text;
-        string Password = password.Text;
-        if (UserName == "" || Password == "")
+        string mail = mailT.Text;
+        string Password = passwordT.Text;
+        if (mail == "" || Password == "")
         {
             //username or password wrong, we need to add gui to notify the user
             return;
         }
-
         //PORT OF LOCAL COMPUTER CHANGES ALL THE TIME PLEASE MAKE SURE THAT U HAVE THE RIGHT PORT NUMBER.
-        string url = "http://localhost:53018/LoginHandler.ashx";
-        UsreLogin userLogin = new UsreLogin(UserName, Password);
-        JavaScriptSerializer myJavaScriptSerializer = new JavaScriptSerializer();
-        string sendStr = myJavaScriptSerializer.Serialize(userLogin);
+        UsreLogin UL = new UsreLogin(mail, Password);
+        string resultStr = postJSON(UL);
 
-        url += "?JSON=" + sendStr;
-
-
-        HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-        HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
-        Stream receiveStream = myHttpWebResponse.GetResponseStream();
-        Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
-        StreamReader readStream = new StreamReader(receiveStream, encode);
-
-
-        Char[] read = new Char[1000];
-        int count = readStream.Read(read, 0, 256);
-        string resultStr = new String(read, 0, count);
-        myHttpWebResponse.Close();
-        readStream.Close();
-
-        if (resultStr.CompareTo("true") == 1)
+        if (resultStr.CompareTo("0") == 0)
         {
             Response.Redirect("Default.aspx");
         }
+        else
+        {
+            mailT.Text="";
+            passwordT.Text="";
+        }
+    }
 
-       
+    //register
+    protected void register_Click(object sender, EventArgs e)
+    {
+        if (register_button.Text == "Register")
+        {
+            nameL.Visible = true;
+            nameT.Visible = true;
+            register_button.Text="Finish";
+        }
+        else
+        {
+            string name = nameT.Text;
+            string mail = mailT.Text;
+            string Password = passwordT.Text;
+            if (name == "" || mail == "" || Password == "")
+            {
+                //username or password wrong, we need to add gui to notify the user
+                return;
+            }
+            UsreLogin UL = new UsreLogin(name,mail,Password);
+            string resultStr = postJSON(UL);
+
+            if (resultStr.CompareTo("True") == 0)
+            {
+                Response.Redirect("Default.aspx");
+            }
+        }
+    }
+
+    //send userLogin class as json to server
+    private String postJSON(UsreLogin ul)
+    {
+        try
+        {
+            //PORT OF LOCAL COMPUTER CHANGES ALL THE TIME PLEASE MAKE SURE THAT U HAVE THE RIGHT PORT NUMBER.
+            string url = "http://localhost:53018/LoginHandler.ashx";
+            string sendStr = myJavaScriptSerializer.Serialize(ul);
+            url += "?JSON=" + sendStr;
+
+            HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+            Stream receiveStream = myHttpWebResponse.GetResponseStream();
+            Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
+            StreamReader readStream = new StreamReader(receiveStream, encode);
+
+            Char[] read = new Char[1000];
+            int count = readStream.Read(read, 0, 256);
+            myHttpWebResponse.Close();
+            readStream.Close();
+            return new String(read, 0, count);
+        }
+        catch (Exception e)
+        {  
+            //server or intenet error
+            return "ERROR";
+        }
     }
 }

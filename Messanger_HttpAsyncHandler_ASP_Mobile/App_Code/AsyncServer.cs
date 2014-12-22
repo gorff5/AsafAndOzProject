@@ -13,8 +13,7 @@ public class AsyncServer
     {
 
         lock (_lock)
-        {
-            
+        {       
             MySqlConnection myConnect;
             MySqlCommand myCommand;
             MySqlDataReader reader;
