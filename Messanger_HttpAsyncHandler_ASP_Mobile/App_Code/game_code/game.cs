@@ -57,7 +57,8 @@ public class game
         num_of_players++;
         newPlayer.gameID = id;//the player plays in this game
         Thread workerThread = new Thread(startGame);
-        workerThread.Start();
+        workerThread.Start();//open thread beacuse the sceond player need to know that he is registered succesfuly to server.
+        //and after he get message that the reg succed he will get the first queston
     }
 
     //start game
