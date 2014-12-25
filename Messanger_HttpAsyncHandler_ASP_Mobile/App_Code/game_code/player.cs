@@ -6,18 +6,24 @@ using System.Web;
 /// <summary>
 /// each game have players, each one earn score
 /// </summary>
+[Serializable]
 public class player
 {
-    private String name;
-    private String mail;
-    private int score;
+    public String name;
+    public String mail;
+    public String score;
+    public String GUID;
+    public String gameID;
+    public Ques Ques;
 
     public player() { }
 
-    public player(String name,String mail)
+    public player(String name,String mail,String score,String GUID)
     {
         this.name = name;
         this.mail = mail;
-        this.score = 0;
+        this.score = score;
+        this.GUID = GUID;
+        this.Ques = null;
     }
 }

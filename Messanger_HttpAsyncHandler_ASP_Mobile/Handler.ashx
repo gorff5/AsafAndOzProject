@@ -67,7 +67,7 @@ public class Handler : IHttpAsyncHandler, System.Web.SessionState.IReadOnlySessi
         {
             case "Register":
 //                AsyncServer.RegicterClient(myAsyncResult, callbackStr, isMobile);
-                AsyncServer.RegisterClient(myAsyncResult, isMobile);
+                AsyncServer.RegisterClient(myAsyncResult,guid,isMobile);
                 myAsyncResult.CompleteRequest();
                 break;
             case "Unregister":

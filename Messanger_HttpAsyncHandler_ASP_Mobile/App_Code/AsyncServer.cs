@@ -8,7 +8,10 @@ public class AsyncServer
     private static List<AsyncResult> _clientStateList = new List<AsyncResult>();
     private static List<game> online_games = new List<game>();
     private static JavaScriptSerializer myJavaScriptSerializer = new JavaScriptSerializer();
-    private static    Random rnd = new Random();
+    private static Random rnd = new Random();
+
+    //this list contain players who are logged in and ready to play, the registerClient function will check if player is ready in this list.
+    public static List<player> readyPlayers = new List<player>();
 
     public static void Set(String ans)
     {
@@ -70,19 +73,29 @@ public class AsyncServer
     }
 
  //   public static void RegicterClient(AsyncResult state, string callbackStr, bool isMobile)
-     public static void RegisterClient(AsyncResult state, bool isMobile)
+     public static void RegisterClient(AsyncResult state, String guid,bool isMobile)
     {
         lock (_lock)
         {
-            state.ClientGuid = Guid.NewGuid().ToString();
-            _clientStateList.Add(state);
-            if (isMobile == false)
-                state._context.Response.Write(state.ClientGuid);
-            else
+            foreach (player p in readyPlayers)//search if there is really logged in player with the same guid in list
             {
- //               string str = callbackStr + "({ res: '" + state.ClientGuid + "'})";
-                string str = "{ res: '" + state.ClientGuid + "'}";
-                state._context.Response.Write(str);
+                if (p.GUID.CompareTo(guid)==0) // Will match once
+                {
+                    state.ClientGuid = guid;
+                    state.Player = p;
+                    _clientStateList.Add(state);
+                    arrangeGames(p);
+                    string resultStr = myJavaScriptSerializer.Serialize(p);
+                    if (isMobile == false)
+                        state._context.Response.Write(state.ClientGuid);
+                    else
+                    {
+                        //               string str = callbackStr + "({ res: '" + state.ClientGuid + "'})";
+                        string str = "{ res: '" + state.ClientGuid + "'}";
+                        state._context.Response.Write(resultStr);
+                    };
+                    break;
+                }
             }
         }
     }
@@ -93,5 +106,22 @@ public class AsyncServer
         {
              _clientStateList.Remove(state);
         }
+    }
+
+    //find game for new player.
+    private static void arrangeGames(player newPlayer)
+    {
+        foreach (game g in online_games)//search for online games that waiting for more players;
+        {
+            if (g.waiting_for_players) // Will match once
+            {
+                g.add(newPlayer);
+                return;
+            }
+        }
+        //if there isnt online games available for this player make new game;
+        game newGame = new game(newPlayer);
+        online_games.Add(newGame);
+        return;
     }
 }

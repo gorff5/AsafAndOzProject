@@ -9,6 +9,7 @@ public class AsyncResult : IAsyncResult
     public object _state;
     public string ClientGuid;
     private Boolean _isCompleted;
+    public player Player;
 
 //    public string _callbackStr;
     public Boolean _isMobile;

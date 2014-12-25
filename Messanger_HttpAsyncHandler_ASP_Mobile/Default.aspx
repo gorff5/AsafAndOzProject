@@ -13,8 +13,11 @@
 		    var myJSON_Ques;
 		    var xmlHttp_OneTime;
 		    var xmlHttp_Process;
+		    var player;
 		    
 		    function myLoad() {
+		        var player = JSON.parse(getCookie("playerCookie"));
+		        GuID = player.GUID;
 		        try {
 		            xmlHttp_OneTime = new ActiveXObject("Microsoft.XMLHTTP");
 		            xmlHttp_Process = new ActiveXObject("Microsoft.XMLHTTP");
@@ -27,7 +30,7 @@
 		            catch (e) {
 		            }
 		        }
-		        var url = "Handler.ashx?cmd=Register";
+		        var url = "Handler.ashx?cmd=Register&guid=" + GuID;
 		        xmlHttp_OneTime.open("POST", url, true);
 		        xmlHttp_OneTime.onreadystatechange = getResponse_Connect;
 		        xmlHttp_OneTime.send();
@@ -81,6 +84,12 @@
 		        var url = "Handler.ashx?cmd=Unregister";
 		        xmlHttp_OneTime.open("POST", url, true);
 		        xmlHttp_OneTime.send();
+		    }
+
+		    function getCookie(name) {
+		        var value = "; " + document.cookie;
+		        var parts = value.split("; " + name + "=");
+		        if (parts.length == 2) return parts.pop().split(";").shift();
 		    }
 
 		    window.onload = myLoad;

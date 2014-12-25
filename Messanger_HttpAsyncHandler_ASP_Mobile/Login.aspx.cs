@@ -13,6 +13,7 @@ public partial class Login : System.Web.UI.Page
 {
     protected static JavaScriptSerializer myJavaScriptSerializer = new JavaScriptSerializer();
 
+
     protected void Page_Load(object sender, EventArgs e)
     {
     }
@@ -32,20 +33,23 @@ public partial class Login : System.Web.UI.Page
         UsreLogin UL = new UsreLogin(mail, Password);
         string resultStr = postJSON(UL);
 
-        if (resultStr.CompareTo("0") == 0)
+        if (resultStr.CompareTo("False") == 0)
         {
-            Response.Redirect("Default.aspx");
+            mailT.Text = "";
+            passwordT.Text = "";
         }
         else
         {
-            mailT.Text="";
-            passwordT.Text="";
+            player me = (player)myJavaScriptSerializer.Deserialize<player>(resultStr);
+            Response.Cookies["playerCookie"].Value = resultStr;
+            Response.Redirect("Default.aspx");
         }
     }
 
     //register
     protected void register_Click(object sender, EventArgs e)
     {
+        //first click JUST OPEN REGISTER OPTION
         if (register_button.Text == "Register")
         {
             nameL.Visible = true;
@@ -65,8 +69,15 @@ public partial class Login : System.Web.UI.Page
             UsreLogin UL = new UsreLogin(name,mail,Password);
             string resultStr = postJSON(UL);
 
-            if (resultStr.CompareTo("True") == 0)
+            if (resultStr.CompareTo("False") == 0)
             {
+                mailT.Text = "";
+                passwordT.Text = "";
+            }
+            else
+            {
+                player me = (player)myJavaScriptSerializer.Deserialize<player>(resultStr);
+                Response.Cookies["playerCookie"].Value = resultStr;
                 Response.Redirect("Default.aspx");
             }
         }
